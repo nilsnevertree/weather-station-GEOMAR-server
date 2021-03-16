@@ -1,5 +1,10 @@
-﻿@{
+﻿@model List<WeatherLogger.Data.Measure>
+@{
     ViewData["Title"] = "Home Page";
+}
+@foreach (var measure in Model)
+{
+    <h1>@measure.Temperature</h1>
 }
 
 <div class="text-center">

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WeatherLogger.Data;
 using WeatherLogger.Models;
 
 namespace WeatherLogger.Controllers
@@ -12,15 +13,18 @@ namespace WeatherLogger.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
+            _context = context;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var measures = _context.Measures.ToList();
+            return View(measures);
         }
 
         public IActionResult Privacy()
